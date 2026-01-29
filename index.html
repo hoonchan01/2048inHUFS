@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>2048inHUFS</title>
+
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="meta/apple-touch-icon.jpg">
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+  <div class="container">
+    
+    <div id="auth-section" class="auth-container">
+      <h1 class="title">2048</h1>
+      <h2 style="margin-top: 0;">로그인 및 회원가입</h2>
+
+      <div id="login-form">
+        <input type="email" id="login-email" placeholder="이메일" required><br>
+        <input type="password" id="login-password" placeholder="비밀번호" required><br>
+        <button id="login-button" class="restart-button">로그인</button>
+        <p>계정이 없으신가요? <a href="#" id="show-signup">회원가입</a></p>
+        <p id="login-error" class="error-message" style="color: red;"></p>
+      </div>
+
+      <div id="signup-form" style="display:none;">
+        <h3>회원가입</h3>
+        <input type="email" id="signup-email" placeholder="이메일" required><br>
+        <input type="password" id="signup-password" placeholder="비밀번호" required><br>
+        <input type="text" id="signup-nickname" placeholder="닉네임" required><br>
+        <button id="signup-button" class="restart-button">회원가입</button>
+        <p>이미 계정이 있으신가요? <a href="#" id="show-login">로그인</a></p>
+        <p id="signup-error" class="error-message" style="color: red;"></p>
+      </div>
+
+      <hr>
+
+      <div id="ranking-section">
+        <h3>🏆 순위표 </h3>
+        <table id="ranking-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 2px solid #aaa;">
+              <th style="padding: 5px;">순위</th>
+              <th style="padding: 5px;">닉네임</th>
+              <th style="padding: 5px;">최고 점수</th>
+            </tr>
+          </thead>
+          <tbody id="ranking-body">
+            </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div id="game-section" style="display:none;">
+      
+      <div class="user-info-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <span id="welcome-message" style="font-weight: bold;"></span>
+        <a class="logout-button restart-button" id="logout-button" style="padding: 8px 15px; margin: 0; font-size: 1em;">로그아웃</a>
+      </div>
+      
+      <div class="heading">
+        <h1 class="title">2048</h1>
+        <div class="scores-container">
+          <div class="score-container">0</div>
+          <div class="best-container">0</div> 
+        </div>
+      </div>
+
+      <div class="above-game">
+        <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
+        <a class="restart-button">New Game</a>
+      </div>
+
+      <div class="game-container">
+        <div class="game-message">
+          <p></p>
+          <div class="lower">
+            <a class="keep-playing-button">Keep going</a>
+            <a class="retry-button">Try again</a>
+          </div>
+        </div>
+
+        <div class="grid-container">
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+        </div>
+
+        <div class="tile-container">
+        </div>
+      </div>
+
+      <p class="game-explanation">
+        <strong class="important">게임방법:</strong> PC 버전에선 <strong>'방향키'</strong> 모바일 버전에선 <strong>'터치 스와이프'</strong>방식으로 타일을 움직입니다. 같은 사슴그림의 타일이 만나면 <strong>하나로 합쳐져 새로운 사슴이 나옵니다. 1.너드사슴->2.취준사슴->3.예술가사슴->4.양키사슴->5.영포티사슴->6.꽃미남사슴->7.만취사슴->8.천재사슴->9.교수사슴->10.헐크사슴->???</strong>
+      </p>
+      <hr>
+      <p>
+      <strong class="important">정보:</strong> 이 게임은 공식게임2048의 코드와 파일을 일부 수정한 버전입니다. 원작의 버전은 다음 링크에서 플레이 하실 수 있습니다. <a href="http://git.io/2048">http://git.io/2048.</a> 본 게임은 절대 상업적 목적으로 사용되지 않으며 개인적인 용도로만 제작되었습니다.
+      </p>
+      <hr>
+      <p>
+      원작자: <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a> <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio에 기반을 둡니다. </a> Copyright (c) 2014 Gabriele Cirulli, 본 게임은 MIT라이센스에 따라 배포됩니다.</a>
+      </p>
+    </div>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore-compat.js"></script>
+
+  <script src="js/firebase_init.js"></script>
+
+  <script src="js/bind_polyfill.js"></script>
+  <script src="js/classlist_polyfill.js"></script>
+  <script src="js/animframe_polyfill.js"></script>
+  
+  <script src="js/keyboard_input_manager.js"></script>
+  <script src="js/html_actuator.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/tile.js"></script>
+  <script src="js/local_storage_manager.js"></script>
+  
+  <script>
+    window.USE_TILE_IMAGES = true;
+  </script>
+
+  <script src="js/game_manager.js"></script>
+  
+  <script src="js/application.js"></script>
+
+  <script src="js/auth_ranking.js"></script>
+
+</body>
+</html>
